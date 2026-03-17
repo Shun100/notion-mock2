@@ -114,4 +114,21 @@ git remote add origin https://github.com/Shun100/notion-mock2.git
 <!-- push -->
 git branch -M main
 git push -u origin main
+
+<!-- エラー -->
+PS C:\Workspace\TypeScript\repo\notion-mock2> git push -u origin main
+To https://github.com/Shun100/notion-mock2
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'https://github.com/Shun100/notion-mock2'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+<!-- リモートリポジトリの内容を取り込む -->
+git pull origin main --rebase
+
+<!-- 再度push -->
+git push origin main
 ```
