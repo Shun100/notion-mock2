@@ -162,6 +162,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 <!-- リモートリポジトリの内容を取り込む -->
 git pull origin main --rebase
 
-<!-- 再度push -->
-git push origin main
+<!-- 再度push (どちらのコマンドも同じ) -->
+git push -u origin main
+git push --set-upstream origin main
 ```
