@@ -86,6 +86,16 @@ PS C:\Workspace\TypeScript\repo\notion-mock2> npm run dev
   ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
   ➜  press h + enter to show help
+
+<!-- 追加の依存ライブラリをインストール -->
+PS C:\Workspace\TypeScript\repo\notion-mock2> npm install react-router-dom react-icons cmdk
+
+added 67 packages, and audited 241 packages in 18s
+
+61 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
 ```
 
 - 途中で失敗して再インストールしたい場合
@@ -94,6 +104,29 @@ PS C:\Workspace\TypeScript\repo\notion-mock2> npm run dev
 Remove-Item -Recurse -Force node_modules
 Remove-Item package-lock.json
 npm install
+```
+
+## プロジェクト構成
+
+```text
+.
+├── public              : そのまま配信される静的ファイル
+├── src
+│   ├── components      : 各ページの中の部品を表すReactコンポーネント
+│   ├── pages           : 各ページの全体を表すReactコンポーネント
+│   ├── styles          : CSS
+│   ├── App.tsx         : アプリ全体のルートを表すReactコンポーネント
+│   ├── index.css       : グローバルCSS
+│   ├── Layout.tsx      : 共通レイアウトを表すReactコンポーネント
+│   └── main.tsx        : エントリーポイント (App.tsxをindex.htmlに描画する)
+├── eslint.config.js    : ESLintの設定ファイル
+├── index.html          : アプリのHTML
+├── package-lock.json   : 依存パッケージのバージョンを固定するための設定ファイル (npmが自動生成する)
+├── package.json        : プロジェクト設定・依存関係の設定ファイル (人が管理する)
+├── tsconfig.app.json   : ブラウザで動くアプリ用(フロントエンド用)のTypeScript設定ファイル
+├── tsconfig.json       : TypeScript全体用の設定ファイル
+├── tsconfig.node.json  : Node.js環境用(ビルドツール・開発ツール用)のTypeScript設定ファイル
+└── vite.config.ts      : Viteの設定ファイル
 ```
 
 ## 初回コミット手順
