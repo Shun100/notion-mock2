@@ -106,6 +106,10 @@ Remove-Item package-lock.json
 npm install
 ```
 
+## 実行方法
+
+- `npm run dev`
+
 ## プロジェクト構成
 
 ```text
