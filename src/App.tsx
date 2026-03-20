@@ -3,6 +3,7 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import Layout from "./Layout";
 import Home from "./pages/Home";
+import NoteDetail from "./pages/NoteDetail";
 
 // アプリ全体のルートを表すReactコンポーネント
 function App() {
@@ -27,6 +28,7 @@ function App() {
           */}
           <Route path="/" element={<Layout />}> 
             <Route index element={<Home />}></Route>
+            <Route path="/notes/:id" element={<NoteDetail />}></Route>
           </Route>
         </Routes>
       </div>
