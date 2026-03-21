@@ -146,9 +146,10 @@ git push --set-upstream origin main
 
 ## API一覧
 
-| 機能名     | URL                          |
-| ---------- | ---------------------------- |
-| ユーザ登録 | `localhost:8888/auth/signup` |
+| 機能名     | URL                          | request body              | response body   |
+| ---------- | ---------------------------- | ------------------------- | --------------- |
+| ユーザ登録 | `localhost:8888/auth/signup` | { name, email, password } | { user, token } |
+| ログイン   | `localhost:8888/auth/signin` | { email, password }       | { user, token } |
 
 ## メモ
 

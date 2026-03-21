@@ -6,8 +6,12 @@ import {
 } from '../components/ui/card';
 import { FiPlus } from 'react-icons/fi';
 import '../styles/pages/home.css';
+import { useAuth } from '../components/context/AuthContext';
 
 export default function Home() {
+  const { user } = useAuth();
+  console.log(user);
+
   return (
     <Card className='home-card'>
       <CardHeader className='home-card-header'>
