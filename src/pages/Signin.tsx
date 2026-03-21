@@ -7,26 +7,31 @@ import { useAuth } from '../components/context/AuthContext';
 export default function Signin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setUser } = useAuth();
+  const { user, setUser } = useAuth();
   const navigate = useNavigate();
 
   const signin = async () => {
-    // ログイン処理
-    const result = await authRepository.signin(email, password);
+    try {
+      // ログイン処理
+      const { user, token } = await authRepository.signin(email, password);
 
-    if (!result) {
-      console.error('ログインに失敗しました');
-      return;
-    }
-
-    // ユーザ情報を保存 (Global State (Context))
-    console.log(result);
-    setUser(result.user);
+      // ユーザ情報を保存 (Global State (Context))
+      setUser(user);
     
-    // トークンを保存 (Local Storage)
-    localStorage.setItem('token', result.token);
+      // トークンを保存 (Local Storage)
+      localStorage.setItem('token', token);
 
-    // Home画面に遷移
+      // Home画面に遷移
+      navigate('/');
+      
+    } catch (error) {
+      console.error(error);
+      alert('ログインに失敗しました');
+    }
+  }
+
+  // 既にログイン済みならHome画面にリダイレクト
+  if (user) {
     navigate('/');
   }
 

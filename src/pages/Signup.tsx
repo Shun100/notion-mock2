@@ -8,26 +8,31 @@ export default function Signup() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setUser } = useAuth();
+  const { user, setUser } = useAuth();
   const navigate = useNavigate();
 
   const signup = async () => {
+    try {
     // ユーザ登録
-    const result = await authRepository.signup(name, email, password);
-
-    if (!result) {
-      console.error('ユーザ登録に失敗しました');
-      return;
-    }
+    const { user, token } = await authRepository.signup(name, email, password);
 
     // ユーザ情報を保存 (Global State (Context))
-    console.log(result);
-    setUser(result.user);
+    setUser(user);
 
     // トークンを保存 (Local Storage)
-    localStorage.setItem('token', result.token);
+    localStorage.setItem('token', token);
 
     // Home画面に遷移
+    navigate('/');
+    
+    } catch (error) {
+      console.error(error);
+      alert('ユーザ登録に失敗しました');
+    }
+  }
+
+  // 既にログイン済みならHome画面にリダイレクト
+  if (user) {
     navigate('/');
   }
 

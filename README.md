@@ -146,13 +146,19 @@ git push --set-upstream origin main
 
 ## API一覧
 
-| 機能名     | URL                          | request body              | response body   |
-| ---------- | ---------------------------- | ------------------------- | --------------- |
-| ユーザ登録 | `localhost:8888/auth/signup` | { name, email, password } | { user, token } |
-| ログイン   | `localhost:8888/auth/signin` | { email, password }       | { user, token } |
+| 機能名           | URL                          | request method | request body              | response body   |
+| ---------------- | ---------------------------- | -------------- | ------------------------- | --------------- |
+| ユーザ登録       | `localhost:8888/auth/signup` | post           | { name, email, password } | { user, token } |
+| ログイン         | `localhost:8888/auth/signin` | post           | { email, password }       | { user, token } |
+| 現在のユーザ取得 | `localhost:8888/auth/me`     | get            | -                         | { user }        |
 
 ## メモ
 
 - ログイン機能の実装方法
   - トークンが無ければサインインページにリダイレクトする
   - そのために、全ページにトークンチェックを実装する必要があるが、共通処理なのでどう実装するのか
+
+### 2026-03-21
+
+- ReactにおいてGlobal Stateを管理するためには`useContext`を使用する
+  - [参考記事](https://weseek.co.jp/tech/2565/)
