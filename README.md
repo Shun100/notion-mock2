@@ -150,6 +150,7 @@ git push --set-upstream origin main
 | ---------------- | ---------------------------- | -------------- | ------------------------- | --------------- |
 | ユーザ登録       | `localhost:8888/auth/signup` | post           | { name, email, password } | { user, token } |
 | ログイン         | `localhost:8888/auth/signin` | post           | { email, password }       | { user, token } |
+| ログアウト       |                              | post           | { }                       | { }             |
 | 現在のユーザ取得 | `localhost:8888/auth/me`     | get            | -                         | { user }        |
 
 ## メモ

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../styles/pages/auth.css';
 import { authRepository } from '../moudules/auth/auth.repository';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ export default function Signup() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { user, setUser } = useAuth();
+  const { setUser } = useAuth();
   const navigate = useNavigate();
 
   const signup = async () => {
@@ -31,10 +31,18 @@ export default function Signup() {
     }
   }
 
-  // 既にログイン済みならHome画面にリダイレクト
-  if (user) {
-    navigate('/');
-  }
+  // ページ初回レンダリング時処理
+  useEffect(() => {
+    const initByCurrentUser = async () => {
+      const currentUser = await authRepository.getCurrentUser();
+      if (currentUser) {
+        // ログイン済みならホーム画面にリダイレクト
+        setUser(currentUser);
+        navigate('/');
+      }
+    }
+    initByCurrentUser();
+  }, []);
 
   return (
     <div className='auth-container'>

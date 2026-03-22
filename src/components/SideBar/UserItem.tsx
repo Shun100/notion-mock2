@@ -7,14 +7,26 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import Item from './Item';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function UserItem() {
+  const { user, setUser } = useAuth();
+  const navigate = useNavigate();
+
+  // ログアウト処理
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('token');
+    navigate('/signin');
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <div className='user-item-trigger' role='button'>
           <div className='user-item-info'>
-            <span className='user-item-name'>ユーザー名 さんのノート</span>
+            <span className='user-item-name'>{user?.name ?? 'ゲスト'} さんのノート</span>
           </div>
           <FiChevronsLeft className='user-item-chevron' size={16} />
         </div>
@@ -35,7 +47,7 @@ export default function UserItem() {
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem className='user-item-logout'>
-          <Item label='ログアウト' icon={FiLogOut} onClick={() => {}} />
+          <Item label='ログアウト' icon={FiLogOut} onClick={logout} />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

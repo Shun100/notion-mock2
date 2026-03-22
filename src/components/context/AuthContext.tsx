@@ -3,11 +3,12 @@ import type { User } from "../../moudules/users/user.entity"
 
 type AuthContextType = {
   user: User | null;
-  setUser: (user: User) => void
+  setUser: (user: User | null) => void
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
+// Contextの公開範囲
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
