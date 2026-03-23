@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import '../styles/pages/auth.css';
-import { authRepository } from '../moudules/auth/auth.repository';
+import { authRepository } from '../modules/auth/auth.repository';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/context/AuthContext';
 

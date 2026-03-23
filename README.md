@@ -146,12 +146,13 @@ git push --set-upstream origin main
 
 ## API一覧
 
-| 機能名           | URL                          | request method | request body              | response body   |
-| ---------------- | ---------------------------- | -------------- | ------------------------- | --------------- |
-| ユーザ登録       | `localhost:8888/auth/signup` | post           | { name, email, password } | { user, token } |
-| ログイン         | `localhost:8888/auth/signin` | post           | { email, password }       | { user, token } |
-| ログアウト       |                              | post           | { }                       | { }             |
-| 現在のユーザ取得 | `localhost:8888/auth/me`     | get            | -                         | { user }        |
+| 機能名           | URL                          | request method | request body              | response body                                       |
+| ---------------- | ---------------------------- | -------------- | ------------------------- | --------------------------------------------------- |
+| ユーザ登録       | `localhost:8888/auth/signup` | post           | { name, email, password } | { user, token }                                     |
+| ログイン         | `localhost:8888/auth/signin` | post           | { email, password }       | { user, token }                                     |
+| ログアウト       |                              | post           | { }                       | { }                                                 |
+| 現在のユーザ取得 | `localhost:8888/auth/me`     | get            | -                         | { user }                                            |
+| ノート新規作成   | `localhost:8888/notes`       | post           | { title, parentId }       | { id, userId, title, content, parentId, createdAt } |
 
 ## メモ
 

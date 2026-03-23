@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
-import type { User } from "../../moudules/users/user.entity"
+import type { User } from "../../modules/users/user.entity"
 
 type AuthContextType = {
   user: User | null;
