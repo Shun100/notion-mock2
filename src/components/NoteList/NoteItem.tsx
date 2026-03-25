@@ -13,8 +13,13 @@ import {
   FiTrash2,
 } from 'react-icons/fi';
 import Item from '../SideBar/Item';
+import type { Note } from '../../modules/notes/note.entity';
 
-export default function NoteItem() {
+type Props = {
+  note: Note;
+}
+
+export default function NoteItem(props: Props) {
   const menu = (
     <div className='note-item-menu-container'>
       <DropdownMenu>
@@ -43,7 +48,7 @@ export default function NoteItem() {
 
   return (
     <div role='button' style={{ paddingLeft: '12px' }}>
-      <Item label={'無題'} icon={FiChevronRight} trailingItem={menu} />
+      <Item label={props.note.title ?? '無題'} icon={FiChevronRight} trailingItem={menu} />
     </div>
   );
 }

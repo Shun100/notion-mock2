@@ -10,5 +10,12 @@ export const noteRepository = {
     });
 
     return new Note(result.data);
+  },
+
+  // ノート一覧取得
+  async getAll(): Promise<Note[]> {
+    const result = await api.get('/notes');
+
+    return result.data.notes.map((note: Note) => new Note(note));
   }
 }

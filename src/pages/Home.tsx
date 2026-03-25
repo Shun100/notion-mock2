@@ -11,12 +11,14 @@ import { useEffect, useState, useRef } from 'react';
 import { authRepository } from '../modules/auth/auth.repository';
 import { useNavigate } from 'react-router-dom';
 import { noteRepository } from '../modules/notes/note.repository';
+import { useNotes } from '../components/context/NotesContext';
 
 export default function Home() {
   const { setUser } = useAuth();
   const [title, setTitle] = useState('無題');
   const navigate = useNavigate();
   const didRun = useRef(false);
+  const { setNotes } = useNotes();
 
   /**
    * ノート新規作成
@@ -32,6 +34,21 @@ export default function Home() {
     }
   }
 
+  /**
+   * ノート一覧取得
+   * @returns { Promise<void> } ノート一覧を取得したことを表すPromiseオブジェクト
+   */
+  const getAllNotes = async (): Promise<void> => {
+    try {
+      const notes = await noteRepository.getAll();
+      console.log(notes);
+      setNotes(notes);
+    } catch (error) {
+      console.error(error);
+      alert('ノート一覧の取得に失敗しました');
+    }
+  }
+
   // ページ初回レンダリング時処理
   useEffect(() => {
     if (didRun.current) return;
@@ -40,13 +57,13 @@ export default function Home() {
     const initByCurrentUser = async (): Promise<void> => {
       const currentUser = await authRepository.getCurrentUser();
       if (currentUser) {
-        // ログイン済みなら、ログイン中のユーザ情報に設定
-        setUser(currentUser);
+        setUser(currentUser); // ログイン済みなら、ログイン中のユーザ情報に設定
+        getAllNotes();        // ノート一覧を取得
       } else {
-        // 未ログインなら、サインインページにリダイレクト
-        navigate('/signin');
+        navigate('/signin');  // 未ログインなら、サインインページにリダイレクト
       }
     }
+
     initByCurrentUser();
   }, [setUser, navigate]);
 
