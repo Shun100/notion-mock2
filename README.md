@@ -164,3 +164,9 @@ git push --set-upstream origin main
 
 - ReactにおいてGlobal Stateを管理するためには`useContext`を使用する
   - [参考記事](https://weseek.co.jp/tech/2565/)
+
+### 2026-03-27
+
+- 全てのノートを取得するタイミング
+  - Home画面レンダリング時 [実装済み]
+  - ノート新規作成時 [未実装]

@@ -18,7 +18,7 @@ export default function Home() {
   const [title, setTitle] = useState('無題');
   const navigate = useNavigate();
   const didRun = useRef(false);
-  const { setNotes } = useNotes();
+  const { notes, setNotes } = useNotes();
 
   /**
    * ノート新規作成
@@ -26,26 +26,12 @@ export default function Home() {
    */
   const createNote = async (): Promise<void> => {
     try {
-      await noteRepository.create({ title });
+      const newNote = await noteRepository.create({ title });
       setTitle(''); // ホーム画面にノート名が残ってしまうので、空文字に戻す
+      setNotes([newNote, ...(notes ?? [])]); // ノート一覧に追加
     } catch (error) {
       console.error(error);
       alert('ノートの作成に失敗しました');
-    }
-  }
-
-  /**
-   * ノート一覧取得
-   * @returns { Promise<void> } ノート一覧を取得したことを表すPromiseオブジェクト
-   */
-  const getAllNotes = async (): Promise<void> => {
-    try {
-      const notes = await noteRepository.getAll();
-      console.log(notes);
-      setNotes(notes);
-    } catch (error) {
-      console.error(error);
-      alert('ノート一覧の取得に失敗しました');
     }
   }
 
@@ -53,6 +39,20 @@ export default function Home() {
   useEffect(() => {
     if (didRun.current) return;
     didRun.current = true;
+
+    /**
+     * ノート一覧取得
+     * @returns { Promise<void> } ノート一覧を取得したことを表すPromiseオブジェクト
+     */
+    const getAllNotes = async (): Promise<void> => {
+      try {
+        const notes = await noteRepository.getAll();
+        setNotes(notes);
+      } catch (error) {
+        console.error(error);
+        alert('ノート一覧の取得に失敗しました');
+      }
+    }
 
     const initByCurrentUser = async (): Promise<void> => {
       const currentUser = await authRepository.getCurrentUser();
@@ -65,7 +65,7 @@ export default function Home() {
     }
 
     initByCurrentUser();
-  }, [setUser, navigate]);
+  }, [setUser, navigate, setNotes]);
 
   return (
     <Card className='home-card'>
