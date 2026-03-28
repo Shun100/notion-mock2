@@ -13,9 +13,21 @@ export const noteRepository = {
   },
 
   // ノート一覧取得
-  async getAll(): Promise<Note[]> {
-    const result = await api.get('/notes');
+  async getAll(options?:{ parentId?: number}): Promise<Note[]> {
+    const result = await api.get('/notes',
+      // クエリパラメータはこのように'params'をキーにしたオブジェクトで定義する
+      {
+        params: {
+          parentId: options?.parentId,
+        }
+      }
+    );
 
     return result.data.notes.map((note: Note) => new Note(note));
+  },
+
+  // ノート削除
+  async delete(id: number): Promise<void> {
+    await api.delete(`/notes/${id}`);
   }
 }
