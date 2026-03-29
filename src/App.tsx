@@ -4,8 +4,8 @@ import Signup from "./pages/Signup";
 import Layout from "./Layout";
 import Home from "./pages/Home";
 import NoteDetail from "./pages/NoteDetail";
-import { AuthProvider  } from "./components/context/AuthContext";
-import { NotesProvider } from "./components/context/NotesContext";
+import { AuthProvider } from "./modules/auth/AuthProvider";
+import { NotesProvider } from "./modules/notes/NoteProvider";
 
 // アプリ全体のルートを表すReactコンポーネント
 function App() {

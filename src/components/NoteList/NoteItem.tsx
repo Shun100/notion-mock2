@@ -14,10 +14,10 @@ import {
 } from 'react-icons/fi';
 import Item from '../SideBar/Item';
 import type { Note } from '../../modules/notes/note.entity';
-import { useNotes } from '../context/NotesContext';
 import { noteRepository } from '../../modules/notes/note.repository';
 import { useState } from 'react';
 import type { IconType } from 'react-icons';
+import { useNotes } from '../../modules/notes/noteHook';
 
 type Props = {
   note: Note;
@@ -47,7 +47,7 @@ export default function NoteItem(props: Props) {
 
   // 子ノート一覧取得
   const getChildren = async (note: Note) => {
-    const children = await noteRepository.getAll({ parentId: note.id });
+    const children = await noteRepository.getChildren(note.id);
     if (!children) return;
     setNotes([...children, ...(notes ?? [])]);
   }

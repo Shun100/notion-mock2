@@ -7,8 +7,8 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import Item from './Item';
-import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../modules/auth/authHook';
 
 export default function UserItem() {
   const { user, setUser } = useAuth();

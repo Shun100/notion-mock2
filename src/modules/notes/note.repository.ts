@@ -2,31 +2,43 @@ import api from "../../lib/api";
 import { Note } from "./note.entity";
 
 export const noteRepository = {
-  // ノート新規作成
-  async create(params: { title?:string; parentId?: number }): Promise<Note> {
+  /**
+   * ノート新規登録
+   * @param {{ title?: string, parentId?: number | null }} params - タイトルと親ノートIDを保持するオブジェクト
+   * @returns { Promise<Note> } - 登録したノートの情報を保持するPromiseオブジェクト
+   */
+  async create(params: { title?: string; parentId?: number | null }): Promise<Note> {
     const result = await api.post('/notes', {
       title: params.title ?? '無題',
-      parentId: params.parentId
+      parentId: params.parentId ?? null,
     });
-
     return new Note(result.data);
   },
 
-  // ノート一覧取得
-  async getAll(options?:{ parentId?: number}): Promise<Note[]> {
-    const result = await api.get('/notes',
-      // クエリパラメータはこのように'params'をキーにしたオブジェクトで定義する
-      {
-        params: {
-          parentId: options?.parentId,
-        }
-      }
-    );
-
+  /**
+   * 全ノート一覧取得
+   * @returns { Promise<Note[]> } - 全ノート一覧
+   */
+  async getAll(): Promise<Note[]> {
+    const result = await api.get('/notes');
     return result.data.notes.map((note: Note) => new Note(note));
   },
 
-  // ノート削除
+  /**
+   * 子ノート一覧取得
+   * @param { number } parentId - 親ノートID
+   * @returns { Promise<Notes[]> } - 子ノート一覧を保持するPromiseオブジェクト
+   */
+  async getChildren(parentId: number): Promise<Note[]> {
+    // クエリパラメータは'params'をキーにしたオブジェクトで定義する
+    const result = await api.get('/notes', { params: { parentId } });
+    return result.data.notes.map((note: Note) => new Note(note));
+  },
+
+  /**
+   * ノート削除
+   * @param { number } id - ノートID
+   */
   async delete(id: number): Promise<void> {
     await api.delete(`/notes/${id}`);
   }

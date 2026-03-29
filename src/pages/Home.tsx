@@ -6,12 +6,12 @@ import {
 } from '../components/ui/card';
 import { FiPlus } from 'react-icons/fi';
 import '../styles/pages/home.css';
-import { useAuth } from '../components/context/AuthContext';
 import { useEffect, useState, useRef } from 'react';
-import { authRepository } from '../modules/auth/auth.repository';
+import { authRepository } from '../modules/auth/authRepository';
 import { useNavigate } from 'react-router-dom';
 import { noteRepository } from '../modules/notes/note.repository';
-import { useNotes } from '../components/context/NotesContext';
+import { useAuth } from '../modules/auth/authHook';
+import { useNotes } from '../modules/notes/noteHook';
 
 export default function Home() {
   const { setUser } = useAuth();
@@ -22,7 +22,6 @@ export default function Home() {
 
   /**
    * ノート新規作成
-   * @returns { Promise<void> } ノート作成完了を表すPromiseオブジェクト
    */
   const createNote = async (): Promise<void> => {
     try {
@@ -42,7 +41,6 @@ export default function Home() {
 
     /**
      * ノート一覧取得
-     * @returns { Promise<void> } ノート一覧を取得したことを表すPromiseオブジェクト
      */
     const getAllNotes = async (): Promise<void> => {
       try {
@@ -54,6 +52,9 @@ export default function Home() {
       }
     }
 
+    /**
+     * ログイン状態に応じたページ初期化処理
+     */
     const initByCurrentUser = async (): Promise<void> => {
       const currentUser = await authRepository.getCurrentUser();
       if (currentUser) {

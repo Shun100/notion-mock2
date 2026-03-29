@@ -1,5 +1,5 @@
 import api from "../../lib/api"
-import { User } from "../users/user.entity";
+import { User } from "../users/userEntity";
 
 export const authRepository = {
   async signup(

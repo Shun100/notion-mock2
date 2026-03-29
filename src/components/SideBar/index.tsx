@@ -3,14 +3,13 @@ import NoteList from '../NoteList';
 import UserItem from './UserItem';
 import { FiPlus, FiSearch } from 'react-icons/fi';
 import { noteRepository } from '../../modules/notes/note.repository';
-import { useNotes } from '../context/NotesContext';
+import { useNotes } from '../../modules/notes/noteHook';
 
 export default function SideBar() {
   const { notes, setNotes}  = useNotes();
 
   /**
    * ノート作成
-   * @returns { Promise<void> } ノートの作成完了を表すPromiseオブジェクト
    */
   const createNote = async (): Promise<void> => {
     try {

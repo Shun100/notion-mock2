@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import '../styles/pages/auth.css';
-import { authRepository } from '../modules/auth/auth.repository';
+import { authRepository } from '../modules/auth/authRepository';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../components/context/AuthContext';
+import { useAuth } from '../modules/auth/authHook';
 
 export default function Signup() {
   const [name, setName] = useState('');
