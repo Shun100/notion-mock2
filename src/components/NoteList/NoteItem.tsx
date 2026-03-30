@@ -27,6 +27,7 @@ type Props = {
 export default function NoteItem(props: Props) {
   const { notes, setNotes } = useNotes();
   const [isHovered, setIsHovered] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   // 子ノート展開アイコン取得
   const getIcon = (): IconType => {
@@ -45,12 +46,20 @@ export default function NoteItem(props: Props) {
     setNotes([newChildNote, ...(notes ?? [])]);
   }
 
-  // 子ノート一覧取得
-  const getChildren = async (note: Note) => {
+  // 子ノート一覧展開
+  const expandChildren = async (note: Note) => {
+    setIsExpanded(true);
     const children = await noteRepository.getChildren(note.id);
     if (!children) return;
     setNotes([...children, ...(notes ?? [])]);
   }
+
+  // 子ノート一覧折りたたみ
+  const collapseChildren = async (note: Note) => {
+    setIsExpanded(false);
+    if (notes) setNotes(notes.filter(n => n.parentId !== note.id));
+  }
+
 
   const menu = (
     <div className='note-item-menu-container'>
@@ -88,7 +97,13 @@ export default function NoteItem(props: Props) {
         label={props.note.title ?? '無題'}
         icon={getIcon()}
         trailingItem={menu}
-        onIconClick={() => getChildren(props.note)}
+        onIconClick={() => {
+          if (isExpanded) {
+            collapseChildren(props.note);
+          } else {
+            expandChildren(props.note);
+          }
+        }}
       />
     </div>
   );
