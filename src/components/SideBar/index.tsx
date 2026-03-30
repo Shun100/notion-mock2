@@ -2,7 +2,7 @@ import Item from './Item';
 import NoteList from '../NoteList';
 import UserItem from './UserItem';
 import { FiPlus, FiSearch } from 'react-icons/fi';
-import { noteRepository } from '../../modules/notes/note.repository';
+import { noteRepository } from '../../modules/notes/noteRepository';
 import { useNotes } from '../../modules/notes/noteHook';
 
 export default function SideBar() {

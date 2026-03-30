@@ -1,5 +1,5 @@
 import api from "../../lib/api";
-import { Note } from "./note.entity";
+import { Note } from "./noteEntity";
 
 export const noteRepository = {
   /**

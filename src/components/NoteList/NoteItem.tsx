@@ -13,8 +13,8 @@ import {
   FiTrash2,
 } from 'react-icons/fi';
 import Item from '../SideBar/Item';
-import type { Note } from '../../modules/notes/note.entity';
-import { noteRepository } from '../../modules/notes/note.repository';
+import type { Note } from '../../modules/notes/noteEntity';
+import { noteRepository } from '../../modules/notes/noteRepository';
 import { useState } from 'react';
 import type { IconType } from 'react-icons';
 import { useNotes } from '../../modules/notes/noteHook';

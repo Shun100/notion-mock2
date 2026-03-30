@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import type { Note } from "./note.entity";
+import type { Note } from "./noteEntity";
 import { NotesContext } from "./noteContext";
 
 /*

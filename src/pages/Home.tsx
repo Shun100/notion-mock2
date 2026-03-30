@@ -9,7 +9,7 @@ import '../styles/pages/home.css';
 import { useEffect, useState, useRef } from 'react';
 import { authRepository } from '../modules/auth/authRepository';
 import { useNavigate } from 'react-router-dom';
-import { noteRepository } from '../modules/notes/note.repository';
+import { noteRepository } from '../modules/notes/noteRepository';
 import { useAuth } from '../modules/auth/authHook';
 import { useNotes } from '../modules/notes/noteHook';
 

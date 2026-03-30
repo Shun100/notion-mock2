@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import type { Note } from "./note.entity";
+import type { Note } from "./noteEntity";
 
 /*
  * 1. Context
