@@ -16,6 +16,17 @@ export const noteRepository = {
   },
 
   /**
+   * ノート更新
+   * @param { number } id - ノートID
+   * @param {{ title?: string, content?: string }} note - ノート内容
+   * @param note 
+   */
+  async update (id: number, note: { title: string | null, content: string | null }): Promise<Note> {
+    const result = await api.patch(`/notes/${id}`, note);
+    return new Note(result.data);
+  },
+
+  /**
    * 全ノート一覧取得
    * @returns { Promise<Note[]> } - 全ノート一覧
    */
@@ -33,6 +44,16 @@ export const noteRepository = {
     // クエリパラメータは'params'をキーにしたオブジェクトで定義する
     const result = await api.get('/notes', { params: { parentId } });
     return result.data.notes.map((note: Note) => new Note(note));
+  },
+
+  /**
+   * IDによるノート取得
+   * @param { number } id - ノートのID
+   * @return { Promise<Note> } - 取得したノートを保持するPromiseオブジェクト
+   */
+  async getById(id: number): Promise<Note> {
+    const result = await api.get(`/notes/${id}`);
+    return new Note(result.data);
   },
 
   /**

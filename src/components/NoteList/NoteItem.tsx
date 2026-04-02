@@ -18,16 +18,19 @@ import { noteRepository } from '../../modules/notes/noteRepository';
 import { useState } from 'react';
 import type { IconType } from 'react-icons';
 import { useNotes } from '../../modules/notes/noteHook';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   note: Note;
   layer: number;
 }
 
+// ノート1つ1つを表すコンポーネント
 export default function NoteItem(props: Props) {
   const { notes, setNotes } = useNotes();
   const [isHovered, setIsHovered] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const navigate = useNavigate();
 
   // 子ノート展開アイコン取得
   const getIcon = (): IconType => {
@@ -60,6 +63,10 @@ export default function NoteItem(props: Props) {
     if (notes) setNotes(notes.filter(n => n.parentId !== note.id));
   }
 
+  // 詳細画面に遷移
+  const moveToDetail = () => {
+    navigate(`/notes/${props.note.id}`);
+  }
 
   const menu = (
     <div className='note-item-menu-container'>
@@ -97,6 +104,7 @@ export default function NoteItem(props: Props) {
         label={props.note.title ?? '無題'}
         icon={getIcon()}
         trailingItem={menu}
+        onClick={moveToDetail}
         onIconClick={() => {
           if (isExpanded) {
             collapseChildren(props.note);

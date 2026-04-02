@@ -155,6 +155,8 @@ git push --set-upstream origin main
 | ノート新規作成   | `localhost:8888/notes`       | post           | { title, parentId }       | { id, userId, title, content, parentId, createdAt }  |
 | ノート一覧取得   | `localhost:8888/notes`       | get            | -                         | [{ id, userId, title, content, parentId, createdAt}] |
 | ノート削除       | `localhost:8888/notes/${id}` | delete         | -                         | -                                                    |
+| ノート取得       | `localhost:8888/notes/${id}` | get            | -                         | { id, userId, title, content, parentId, createdAt }  |
+| ノート更新       | `localhost:8888/notes/${id}` | patch          | { title, content }        | { id, userId, title, content, parentId, createdAt }  |
 
 ## メモ
 
@@ -172,3 +174,16 @@ git push --set-upstream origin main
 - 全てのノートを取得するタイミング
   - Home画面レンダリング時 [実装済み]
   - ノート新規作成時 [未実装]
+
+### 2026-04-01
+
+- バグ
+  - 3点リーダを押下したときに、Deleteのツールチップが表示されると同時にノート詳細画面に遷移してしまう
+
+### 2026-04-03
+
+- バグ
+  - ノートの詳細画面を開いてから他のノートのタイトルをクリックすると、そちらのノートの詳細画面に遷移するもののタイトルが前のノートのまま
+    - 修正完了
+  - ノート詳細画面からホーム画面に戻る遷移が無い
+    - サイドバーの余白部分をクリックしたらホーム画面にリダイレクトするようにする
