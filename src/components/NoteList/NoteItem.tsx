@@ -104,8 +104,12 @@ export default function NoteItem(props: Props) {
         label={props.note.title ?? '無題'}
         icon={getIcon()}
         trailingItem={menu}
-        onClick={moveToDetail}
-        onIconClick={() => {
+        onClick={e => {
+          e.stopPropagation();
+          moveToDetail();
+        }}
+        onIconClick={(e) => {
+          e.stopPropagation();
           if (isExpanded) {
             collapseChildren(props.note);
           } else {

@@ -57,6 +57,16 @@ export const noteRepository = {
   },
 
   /**
+   * ノート検索
+   * @param { string } keyword - キーワード
+   * @returns { Promise<Note[]> } - 検索条件に該当するノート一覧を保持するPromiseオブジェクト 
+   */
+  async search(keyword: string): Promise<Note[]> {
+    const result = await api.get('/notes', { params: { keyword }});
+    return result.data.notes.map((note: Note) => new Note(note));
+  },
+
+  /**
    * ノート削除
    * @param { number } id - ノートID
    */

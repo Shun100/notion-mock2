@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import type { Note } from "../modules/notes/noteEntity";
 
 type Props = {
   initialTitle: string,
@@ -7,6 +6,7 @@ type Props = {
 }
 
 export default function TitleInput({ initialTitle, onTitleChange }: Props) {
+  console.log(initialTitle);
   const [title, setTitle] = useState(initialTitle);
 
   // initialTitleが更新される度に、titleを更新して再レンダリング

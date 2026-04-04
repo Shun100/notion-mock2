@@ -29,7 +29,7 @@ export default function NoteDetail() {
   const onTitleChange = async (newTitle: string) => {
     if (note) {
       const updatedNote = await updateNote(newTitle);
-      // setNote(updatedNote);
+      setNote(updatedNote);
       
       // ノート一覧更新
       if (notes && updatedNote) {

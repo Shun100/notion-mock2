@@ -3,7 +3,7 @@ import type { IconType } from 'react-icons';
 interface ItemProps {
   label: string;
   icon: IconType;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => void;
   onIconClick?: (event: React.MouseEvent) => void;
   isActive?: boolean;
   trailingItem?: React.ReactElement;

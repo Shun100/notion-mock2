@@ -6,9 +6,13 @@ import { noteRepository } from '../../modules/notes/noteRepository';
 import { useNotes } from '../../modules/notes/noteHook';
 import { useNavigate } from 'react-router-dom';
 
+type Props = {
+  onSearchButtonClick: () => void;
+}
+
 // ナビゲーションメニューのReactコンポーネント
-export default function SideBar() {
-  const { notes, setNotes}  = useNotes();
+export default function SideBar({ onSearchButtonClick }: Props) {
+  const { notes, setNotes }  = useNotes();
   const navigate = useNavigate();
 
   // ノート作成
@@ -29,7 +33,9 @@ export default function SideBar() {
     <>
       <aside
         className='sidebar'
-        onClick={() => navigate('/')} // 余白部分をクリックしたらホーム画面にリダイレクト
+        onClick={() => {
+          navigate('/');
+        }} // 余白部分をクリックしたらホーム画面にリダイレクト
       >
         <div>
           <div>
@@ -37,7 +43,7 @@ export default function SideBar() {
             <Item
               label='検索'
               icon={FiSearch}
-              onClick={() => {}}
+              onClick={onSearchButtonClick}
             />
           </div>
           <div className='sidebar-spacer'>
